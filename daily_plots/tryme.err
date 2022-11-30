@@ -1,0 +1,144 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_TIME = "fr_FR.UTF-8",
+	LC_MONETARY = "fr_FR.UTF-8",
+	LC_ADDRESS = "fr_FR.UTF-8",
+	LC_TELEPHONE = "fr_FR.UTF-8",
+	LC_NAME = "fr_FR.UTF-8",
+	LC_MEASUREMENT = "fr_FR.UTF-8",
+	LC_IDENTIFICATION = "fr_FR.UTF-8",
+	LC_NUMERIC = "fr_FR.UTF-8",
+	LC_PAPER = "fr_FR.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_TIME = "fr_FR.UTF-8",
+	LC_MONETARY = "fr_FR.UTF-8",
+	LC_ADDRESS = "fr_FR.UTF-8",
+	LC_TELEPHONE = "fr_FR.UTF-8",
+	LC_NAME = "fr_FR.UTF-8",
+	LC_MEASUREMENT = "fr_FR.UTF-8",
+	LC_IDENTIFICATION = "fr_FR.UTF-8",
+	LC_NUMERIC = "fr_FR.UTF-8",
+	LC_PAPER = "fr_FR.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+
+(process:43476): Gtk-WARNING **: 11:07:31.421: Locale not supported by C library.
+	Using the fallback 'C' locale.
+Unable to init server: Could not connect: Connection refused
+
+(x-terminal-emulator:43476): Gtk-WARNING **: 11:07:31.423: cannot open display: :
+Warning: program returned non-zero exit code #256
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_TIME = "fr_FR.UTF-8",
+	LC_MONETARY = "fr_FR.UTF-8",
+	LC_ADDRESS = "fr_FR.UTF-8",
+	LC_TELEPHONE = "fr_FR.UTF-8",
+	LC_NAME = "fr_FR.UTF-8",
+	LC_MEASUREMENT = "fr_FR.UTF-8",
+	LC_IDENTIFICATION = "fr_FR.UTF-8",
+	LC_NUMERIC = "fr_FR.UTF-8",
+	LC_PAPER = "fr_FR.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+qt.qpa.xcb: could not connect to display :
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx, xcb.
+
+Aborted
+/usr/bin/xdg-open: 882: x-www-browser: not found
+/usr/bin/xdg-open: 882: firefox: not found
+/usr/bin/xdg-open: 882: iceweasel: not found
+/usr/bin/xdg-open: 882: seamonkey: not found
+/usr/bin/xdg-open: 882: mozilla: not found
+/usr/bin/xdg-open: 882: epiphany: not found
+/usr/bin/xdg-open: 882: konqueror: not found
+/usr/bin/xdg-open: 882: chromium: not found
+/usr/bin/xdg-open: 882: chromium-browser: not found
+/usr/bin/xdg-open: 882: google-chrome: not found
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_TIME = "fr_FR.UTF-8",
+	LC_MONETARY = "fr_FR.UTF-8",
+	LC_ADDRESS = "fr_FR.UTF-8",
+	LC_TELEPHONE = "fr_FR.UTF-8",
+	LC_NAME = "fr_FR.UTF-8",
+	LC_MEASUREMENT = "fr_FR.UTF-8",
+	LC_IDENTIFICATION = "fr_FR.UTF-8",
+	LC_NUMERIC = "fr_FR.UTF-8",
+	LC_PAPER = "fr_FR.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_TIME = "fr_FR.UTF-8",
+	LC_MONETARY = "fr_FR.UTF-8",
+	LC_ADDRESS = "fr_FR.UTF-8",
+	LC_TELEPHONE = "fr_FR.UTF-8",
+	LC_NAME = "fr_FR.UTF-8",
+	LC_MEASUREMENT = "fr_FR.UTF-8",
+	LC_IDENTIFICATION = "fr_FR.UTF-8",
+	LC_NUMERIC = "fr_FR.UTF-8",
+	LC_PAPER = "fr_FR.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+
+(process:43650): Gtk-WARNING **: 11:07:34.603: Locale not supported by C library.
+	Using the fallback 'C' locale.
+Unable to init server: Could not connect: Connection refused
+
+(x-terminal-emulator:43650): Gtk-WARNING **: 11:07:34.605: cannot open display: :
+Warning: program returned non-zero exit code #256
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_TIME = "fr_FR.UTF-8",
+	LC_MONETARY = "fr_FR.UTF-8",
+	LC_ADDRESS = "fr_FR.UTF-8",
+	LC_TELEPHONE = "fr_FR.UTF-8",
+	LC_NAME = "fr_FR.UTF-8",
+	LC_MEASUREMENT = "fr_FR.UTF-8",
+	LC_IDENTIFICATION = "fr_FR.UTF-8",
+	LC_NUMERIC = "fr_FR.UTF-8",
+	LC_PAPER = "fr_FR.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+qt.qpa.xcb: could not connect to display :
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx, xcb.
+
+Aborted
+/usr/bin/xdg-open: 882: x-www-browser: not found
+/usr/bin/xdg-open: 882: firefox: not found
+/usr/bin/xdg-open: 882: iceweasel: not found
+/usr/bin/xdg-open: 882: seamonkey: not found
+/usr/bin/xdg-open: 882: mozilla: not found
+/usr/bin/xdg-open: 882: epiphany: not found
+/usr/bin/xdg-open: 882: konqueror: not found
+/usr/bin/xdg-open: 882: chromium: not found
+/usr/bin/xdg-open: 882: chromium-browser: not found
+/usr/bin/xdg-open: 882: google-chrome: not found

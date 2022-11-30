@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+
+import os
+import coaenv as cf
+from bokeh.plotting import output_file, save
+from datetime import datetime, date
+
+cf.setwhom('owid')
+DATE=date.today().strftime("%b %Y")
+
+localDir="/home/tristan/pycoa/daily_plots/www/"
+wwwDir="./"
+baseDir="plots/"+date.today().strftime("%Y%m%d")+"/"
+try:
+    os.mkdir(localDir+baseDir)
+except FileExistsError:
+    pass
+
+htmlFile="covid19owid.html"
+suffixModelHtml=".model"
+
+localDir="/home/tristan/pycoa/daily_plots/www/"
+wwwDir="./"
+
+regionList=['World','Africa','Americas','Asia','Europe','Oceania','G7','G20','Oecd','G77','European Union','Commonwealth']
+
+s="<h2 id=\"plots\">COVID19 data from OWID graphics</h2>"
+s=s+"<p>Computed plots on "+datetime.now().strftime("%x, %H:%M")+", using the <code class=\"language-plaintext highlighter-rouge\">"+cf.getversion()+"</code> version of PyCoA. Latest data on "+cf.get().date.max().strftime("%x")+".</p>"
+s=s+"<center>"
+s=s+"<iframe src=\""+wwwDir+baseDir+"oa.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"<iframe src=\""+wwwDir+baseDir+"ob.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"<iframe src=\""+wwwDir+baseDir+"oc.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"<iframe src=\""+wwwDir+baseDir+"od.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"</center>"
+
+wdict={'total_deaths':'Death','total_cases':'Cases','total_people_fully_vaccinated':'Fully vaccinated','cur_icu_patients':'Current ICU patients'}
+
+cmd=[]
+for r in regionList:
+    s=s+"<br/><h2>"+r+"</h2>"
+    for kw,w in wdict.items():
+        s=s+"<h3>"+w+"</h3>"
+        for p in ['no','100k']:
+            s=s+"<h4>Population normalization : "+p+"</h4><ul>"
+
+            filenameSuff=r+"_pop"+p+"_"+kw+"_owid.html"
+        
+            f=baseDir+"plotsum_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Total sum</a></li>"
+            output_file(localDir+f)
+            if r=='World' and p=='no' and kw=='total_deaths':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"oa.html")
+            fig=cf.figureplot(where=r,option='sumall',bypop=p,which=kw)
+            save(fig)
+
+            f=baseDir+"plot_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Country time series</a></li>"
+            output_file(localDir+f)
+            if r=='World' and p=='no' and kw=='total_cases':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"ob.html")
+            fig=cf.figureplot(where=r,bypop=p,which=kw)
+            save(fig)
+
+            f=baseDir+"hist_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Histogram</a></li>"
+            output_file(localDir+f)
+            fig=cf.figurehist(where=r,bypop=p,which=kw)
+            save(fig)
+            if r=='World' and p=='100k' and kw=='total_people_fully_vaccinated':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"od.html")
+
+            f=baseDir+"map_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Map</a></li>"
+            output_file(localDir+f)
+            fig=cf.figuremap(where=r,bypop=p,which=kw)
+            save(fig)
+            if r=='World' and p=='100k' and kw=='total_deaths':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"oc.html")
+
+            f=baseDir+"dailysum_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Daily total contribution</a></li>"
+            output_file(localDir+f)
+            fig=cf.figureplot(where=r,what='daily',option=['smooth7','sumall'],bypop=p,which=kw)
+            save(fig)
+
+            f=baseDir+"daily_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Daily contribution by country</a></li>"
+            output_file(localDir+f)
+            fig=cf.figureplot(where=r,what='daily',option=['smooth7'],bypop=p,which=kw)
+            save(fig)
+
+            if p == 'no':
+                f=baseDir+"pie_"+filenameSuff
+                s=s+"<li><a href=\""+wwwDir+f+"\">Pie</a></li>"
+                output_file(localDir+f)
+                fig=cf.figurehist(where=r,typeofhist='pie',which=kw)
+                save(fig)
+
+            s=s+"</ul>"
+
+#
+# Replacement
+#
+fin = open(localDir+htmlFile+suffixModelHtml, "rt")
+fout = open(localDir+htmlFile, "wt")
+for line in fin:
+    fout.write(line.replace('##CONTENT',s).replace('##DATE',DATE))
+fin.close()
+fout.close()
+
+for cm in cmd:
+    os.system(cm)
+

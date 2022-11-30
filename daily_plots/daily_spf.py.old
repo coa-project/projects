@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+
+import os
+import coaenv as cf
+from bokeh.plotting import output_file, save
+from datetime import datetime, date
+
+cf.setwhich('spf')
+
+DATE=date.today().strftime("%b %Y")
+
+localDir="/home/tristan/pycoa/daily_plots/www/"
+wwwDir="./"
+baseDir="plots/"+date.today().strftime("%Y%m%d")+"/"
+try:
+    os.mkdir(localDir+baseDir)
+except FileExistsError:
+    pass
+
+htmlFile="covid19spf.html"
+suffixModelHtml=".model"
+
+localDir="/home/tristan/pycoa/daily_plots/www/"
+wwwDir="./"
+
+regionList=cf.listwhere('True')
+regionList.insert(0,'FRA')
+
+s="<h2 id=\"plots\">Graphqiues des donn&eacute;es Covid19 en France</h2>"
+s=s+"<p>Graphs calcul&eacute;s le "+datetime.now().strftime("%x, %H:%M")+", avec la version <code class=\"language-plaintext highlighter-rouge\">"+cf.getversion()+"</code> de PyCoA. Derni&egrave;res donn&eacute;es datant du "+cf.get().date.max().strftime("%x")+".</p>"
+s=s+"<center>"
+s=s+"<iframe src=\""+wwwDir+baseDir+"fa.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"<iframe src=\""+wwwDir+baseDir+"fb.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"<iframe src=\""+wwwDir+baseDir+"fc.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"<iframe src=\""+wwwDir+baseDir+"fd.html\" width=\"520\" height=\"430\" style=\"border:0\" ></iframe>" 
+s=s+"</center>"
+
+wdict={'tot_dchosp':'Deces hospitaliers','tot_P':'Cas testes positifs','tot_vacc_complet':'Vaccination complete','cur_rea':'Patients en rea'}
+
+cmd=[]
+for r in regionList:
+    s=s+"<br/><h2>"+r+"</h2>"
+    for kw,w in wdict.items():
+        s=s+"<h3>"+w+"</h3>"
+        for p in ['no','100k']:
+            s=s+"<h4>Normalisation en population : "+p+"</h4><ul>"
+
+            filenameSuff=r+"_pop"+p+"_"+kw+"_spf.html"
+        
+            f=baseDir+"plotsum_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Somme totale</a></li>"
+            output_file(localDir+f)
+            if r=='FRA' and p=='no' and kw=='tot_dchosp':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"fa.html")
+            if r=='FRA':
+                fig=cf.figureplot(option='sumall',bypop=p,which=kw)
+            else:
+                fig=cf.figureplot(where=r,option='sumall',bypop=p,which=kw)
+            save(fig)
+
+            f=baseDir+"plot_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">S&eacute;ries temporelles par d&eacute;parement</a></li>"
+            output_file(localDir+f)
+            if r=='FRA' and p=='no' and kw=='tot_P':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"fb.html")
+            if r=='FRA':
+                fig=cf.figureplot(bypop=p,which=kw)
+            else:
+                fig=cf.figureplot(where=r,bypop=p,which=kw)
+            save(fig)
+
+            f=baseDir+"hist_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Histogramme</a></li>"
+            output_file(localDir+f)
+            if r=='FRA':
+                fig=cf.figurehist(bypop=p,which=kw)
+            else:
+                fig=cf.figurehist(where=r,bypop=p,which=kw)
+            if r=='FRA' and p=='100k' and kw=='tot_vacc_complet':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"fd.html")
+            save(fig)
+
+            f=baseDir+"map_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Carte</a></li>"
+            output_file(localDir+f)
+            if r=='FRA':
+                fig=cf.figuremap(bypop=p,which=kw)
+            else:
+                fig=cf.figuremap(where=r,bypop=p,which=kw)
+            save(fig)
+            if r=='FRA' and p=='100k' and kw=='tot_dchosp':
+                cmd.append('cp '+localDir+f+' '+localDir+baseDir+"oc.html")
+
+            f=baseDir+"dailysum_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Contribution quotidienne</a></li>"
+            output_file(localDir+f)
+            if r=='FRA':
+                fig=cf.figureplot(what='daily',option=['smooth7','sumall'],bypop=p,which=kw)
+            else:
+                fig=cf.figureplot(where=r,what='daily',option=['smooth7','sumall'],bypop=p,which=kw)
+            save(fig)
+
+            f=baseDir+"daily_"+filenameSuff
+            s=s+"<li><a href=\""+wwwDir+f+"\">Contribution quotidienne par d&eacute;partement</a></li>"
+            output_file(localDir+f)
+            if r=='FRA':
+                fig=cf.figureplot(what='daily',option=['smooth7'],bypop=p,which=kw)
+            else:
+                fig=cf.figureplot(where=r,what='daily',option=['smooth7'],bypop=p,which=kw)
+            save(fig)
+            if p == 'no':
+                f=baseDir+"pie_"+filenameSuff
+                s=s+"<li><a href=\""+wwwDir+f+"\">Camembert</a></li>"
+                output_file(localDir+f)
+                if r=='FRA':
+                    fig=cf.figurehist(typeofhist='pie',which=kw)
+                else:
+                    fig=cf.figurehist(where=r,typeofhist='pie',which=kw)
+                save(fig)
+
+            s=s+"</ul>"
+
+#
+# Replacement
+#
+fin = open(localDir+htmlFile+suffixModelHtml, "rt")
+fout = open(localDir+htmlFile, "wt")
+for line in fin:
+    fout.write(line.replace('##CONTENT',s).replace('##DATE',DATE))
+fin.close()
+fout.close()
+
+for cm in cmd:
+    os.system(cm+" && sleep 1")
+
